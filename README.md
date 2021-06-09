@@ -34,10 +34,9 @@ Open http://127.0.0.1:3000 in your browser.
 
 ## Run the application
 
-```sh
 Open http://[::1]:3000/explorer/ in your browser, expand POST /bmi-calculator click "Try it out" then add request body and Execute.
-```
 
+```sh
 [
 	{ "Gender": "Male", "HeightCm": 171, "WeightKg": 96 },
 	{ "Gender": "Male", "HeightCm": 161, "WeightKg": 85 },
@@ -46,6 +45,7 @@ Open http://[::1]:3000/explorer/ in your browser, expand POST /bmi-calculator cl
 	{ "Gender": "Female", "HeightCm": 150, "WeightKg": 70 },
 	{ "Gender": "Female","HeightCm": 167, "WeightKg": 82 }
 ]
+```
 
 ## Rebuild the project
 
