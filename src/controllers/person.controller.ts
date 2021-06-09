@@ -42,58 +42,59 @@ export class PersonController {
   ): Promise<PersonBmi[]> {
 
     const personObj: Array<PersonBmi> = [];
-    for (let index = 0; index < persons.length; index++) {
-      const person: Person = new Person(persons[index]);
-
-      const bmi: number = PersonController.calculateBMIs(person);
-      const {bmi_category, health_risk} = PersonController.calculateBMICategoryBMIrange(bmi);
+    for (const iterator of persons) {
+      // calculate body mass index
+      const bmi: number = PersonController.calculateBMIs(iterator);
+      // calculate body mass index category and health risk
+      const {bmiCategory, healthRisk} = PersonController.calculateBMICategoryBMIrange(bmi);
       // create a new PersonBmi Object
       const PersonBmiObj: PersonBmi = new PersonBmi({
-        gender: person["Gender"] || "Male",
-        height_cm: person["HeightCm"] || 1,
-        weight_kg: person["WeightKg"] || 1,
+        gender: iterator["Gender"] ?? "Male",
+        heightCm: iterator["HeightCm"] ?? 1,
+        weightKg: iterator["WeightKg"] ?? 1,
         bmi,
-        bmi_category,
-        health_risk
+        bmiCategory,
+        healthRisk
       })
-
+      // push person object with bmi, bmiCategory and healthRisk
       personObj.push(PersonBmiObj)
     }
+    // add to the database and return it in response
     return this.personBmiRepository.createAll(personObj);
   }
 
   /**
- * calculate bmi_category and bmi_range
+ * calculate bmiCategory and healthRisk
  * @param bmi - number
  */
-  private static calculateBMICategoryBMIrange(bmi: number): {bmi_category: string, health_risk: string} {
-    let bmi_category: string = "";
-    let health_risk: string = "";
+  private static calculateBMICategoryBMIrange(bmi: number): {bmiCategory: string, healthRisk: string} {
+    let bmiCategory = "";
+    let healthRisk = "";
     if (bmi < 18.4) {
-      bmi_category = "Underweight";
-      health_risk = "Malnutrition risk";
+      bmiCategory = "Underweight";
+      healthRisk = "Malnutrition risk";
     }
     if (bmi >= 18.5 && bmi <= 24.9) {
-      bmi_category = "Normal weight";
-      health_risk = "Low risk";
+      bmiCategory = "Normal weight";
+      healthRisk = "Low risk";
     }
     if (bmi >= 25 && bmi <= 29.9) {
-      bmi_category = "Overweight Moderately";
-      health_risk = "Enhanced risk";
+      bmiCategory = "Overweight Moderately";
+      healthRisk = "Enhanced risk";
     }
     if (bmi >= 30 && bmi <= 34.9) {
-      bmi_category = "obese";
-      health_risk = "Medium risk";
+      bmiCategory = "obese";
+      healthRisk = "Medium risk";
     }
     if (bmi >= 35 && bmi <= 39.9) {
-      bmi_category = "Severely obese";
-      health_risk = "High risk";
+      bmiCategory = "Severely obese";
+      healthRisk = "High risk";
     }
     if (bmi >= 40) {
-      bmi_category = "Very severely obese";
-      health_risk = "Very high risk";
+      bmiCategory = "Very severely obese";
+      healthRisk = "Very high risk";
     }
-    return {bmi_category, health_risk};
+    return {bmiCategory, healthRisk};
   }
 
   /**
@@ -101,9 +102,9 @@ export class PersonController {
    * @param person - person
    */
   private static calculateBMIs(person: Person): number {
-    const weight_kg: number = person["WeightKg"] || 0;
-    const height_m: number = person["HeightCm"] && person["HeightCm"] !== 0 ? person["HeightCm"] / 100 : 1;
-    return weight_kg / height_m;
+    const weightKg: number = person["WeightKg"] ?? 0;
+    const heightCm: number = person["HeightCm"] && person["HeightCm"] !== 0 ? person["HeightCm"] / 100 : 1;
+    return weightKg / heightCm;
   }
   /* End of Custom API */
 }

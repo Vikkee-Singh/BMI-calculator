@@ -17,22 +17,22 @@ export class PersonBmi extends Entity {
   @property({
     type: 'number',
   })
-  height_cm?: number;
+  heightCm?: number;
 
   @property({
     type: 'number',
   })
-  weight_kg?: number;
+  weightKg?: number;
 
   @property({
     type: 'string',
   })
-  bmi_category?: string;
+  bmiCategory?: string;
 
   @property({
     type: 'string',
   })
-  health_risk?: string;
+  healthRisk?: string;
 
   @property({
     type: 'number',
