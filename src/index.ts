@@ -1,5 +1,5 @@
 import {ApplicationConfig, BmiCalculatorApplication} from './application';
-
+require('dotenv').config();
 export * from './application';
 
 export async function main(options: ApplicationConfig = {}) {
