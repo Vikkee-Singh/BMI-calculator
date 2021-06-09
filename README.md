@@ -11,7 +11,12 @@ Whenever dependencies in `package.json` are changed, run the following command:
 ```sh
 yarn install
 ```
-## Run the application
+## Add database and table
+
+```sh
+ See person.sql and add database and table to mysql
+```
+## Add .env file and add database variable. (Refer to .env.example file)
 
 ```sh
  See person.sql and add database and table to mysql
